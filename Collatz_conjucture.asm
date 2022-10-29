@@ -20,24 +20,28 @@ main:
     li          $s1, 1              # $s1 = 1
     jal         PrintNumberAndComma # jump to PrintNumberAndComma and save position to $ra
     
-If:
-    # Judging the interger
+# While Loop Branching
+# while not (Loop condition) if not condition do something else condition
+While2:
+    beq		    $t0, $s1, ExitWhile2	# if $t0 == 1 then ExitWhile2
+Ifnot3:
+    # branching condition
     andi        $t1, $t0, 1         # $t1 = $t0 & 1
-    beq         $t1, $0, Else       # if $t1 == $zero then Else
-
+    beq         $t1, $0, Else3      # if $t1 == $zero then Else3
     # $t0 = 3 * $t0 + 1
     li          $t3, 3              # $t3 = 3
     mult        $t0, $t3            # $t0 * $t3 = Hi and Lo registers
     mflo        $t4                 # copy Lo to $t2
     addi        $t0, $t4, 1         # $t0 = $t4 + 1
-    j           Endif               # jump to Endif
-    
-    # $t0 = $t0 / 2
-Else:
+    j           Endif3              # jump to Endif3
+Else3:
     srl         $t0, $t0, 1         # $t0 = $t0 >> 1
-Endif:
-    jal         PrintNumberAndComma # jump to PrintNumberAndComma and save position to $ra
-    bne         $t0, $s1, If        # if $t0 != $s1 then If
+Endif3:
+    jal         PrintNumberAndComma # jump to PrintNumberAndComma and 
+                                    # save position to $ra
+    j		    While2				# jump to While2
+ExitWhile2:
+
 Exit:
     # End Program
     li          $v0, 10
